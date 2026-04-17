@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>V&V — Motor de Leads Hoteleros</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+:root{--navy:#0f1e36;--navym:#1a2f50;--navys:#243558;--teal:#0D9488;--tealL:#E1F5EE;--tealD:#0F6E56;--cream:#f5f2eb;--creamd:#ede9df;--ink:#1a1a2e;--inkm:#4a5568;--inkl:#8896a8;--white:#ffffff;--amber:#d97706;--amberB:#fffbeb;--red:#dc2626;--redB:#fef2f2;--bdr:rgba(15,30,54,0.1);--r:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;}
+header{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white);}
+.logo em{color:var(--teal);font-style:normal;}
+.hsub{font-size:11px;color:var(--inkl);letter-spacing:.1em;text-transform:uppercase;}
+.wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.stepper{display:flex;background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:2rem;}
+.stp{flex:1;padding:12px 16px;display:flex;align-items:center;gap:10px;border-right:1px solid var(--bdr);cursor:pointer;transition:background .15s;}
+.stp:last-child{border-right:none;}
+.stp.active{background:var(--navy);}
+.stp.done{background:var(--tealL);}
+.snum{width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--creamd);color:var(--inkm);}
+.stp.active .snum{background:var(--teal);color:var(--white);}
+.stp.done .snum{background:var(--tealD);color:var(--white);}
+.slbl{font-size:13px;color:var(--inkm);font-weight:500;}
+.stp.active .slbl{color:var(--white);}
+.stp.done .slbl{color:var(--tealD);}
+.card{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem;}
+.ctitle{font-family:'DM Serif Display',serif;font-size:18px;color:var(--navy);margin-bottom:.2rem;}
+.csub{font-size:12px;color:var(--inkl);margin-bottom:1.1rem;}
+.tabs{display:flex;gap:6px;margin-bottom:1.1rem;}
+.tab{font-size:13px;font-family:'DM Sans',sans-serif;padding:6px 16px;border-radius:99px;border:1px solid var(--bdr);background:transparent;color:var(--inkm);cursor:pointer;transition:all .15s;}
+.tab:hover{background:var(--cream);}
+.tab.active{background:var(--navy);color:var(--white);border-color:var(--navy);}
+textarea,input[type=text]{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--cream);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;resize:vertical;outline:none;transition:border .15s;}
+textarea:focus,input[type=text]:focus{border-color:var(--teal);background:var(--white);}
+.irow{display:flex;gap:10px;margin-bottom:10px;}
+.irow input{flex:1;}
+.btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 18px;border-radius:8px;border:1px solid var(--bdr);background:var(--white);color:var(--ink);cursor:pointer;transition:all .15s;}
+.btn:hover{background:var(--cream);}
+.btn:active{transform:scale(.98);}
+.btn-n{background:var(--navy);color:var(--white);border-color:var(--navy);}
+.btn-n:hover{background:var(--navym);}
+.btn-t{background:var(--teal);color:var(--white);border-color:var(--teal);}
+.btn-t:hover{background:var(--tealD);}
+.btn-s{font-size:12px;padding:5px 12px;}
+.btn-g{color:var(--inkl);border-color:transparent;}
+.btn-g:hover{color:var(--red);background:var(--redB);}
+.brow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center;}
+.hchip{background:var(--cream);border:1px solid var(--bdr);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.hname{font-size:14px;font-weight:500;color:var(--navy);}
+.hmeta{font-size:12px;color:var(--inkl);margin-top:1px;}
+.badge{font-size:11px;font-weight:500;padding:2px 9px;border-radius:99px;}
+.bg{background:var(--tealL);color:var(--tealD);}
+.ba{background:var(--amberB);color:var(--amber);}
+.pbox{background:var(--navy);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.plbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--inkl);margin-bottom:.6rem;}
+.ptxt{font-size:12px;line-height:1.7;color:#a8b8d0;white-space:pre-wrap;max-height:200px;overflow-y:auto;}
+.ptxt::-webkit-scrollbar{width:4px;}
+.ptxt::-webkit-scrollbar-thumb{background:var(--navys);border-radius:2px;}
+.ibox{background:var(--tealL);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--tealD);margin-bottom:1.25rem;line-height:1.5;}
+.rrow{background:var(--white);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-bottom:10px;}
+.rhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.rname{font-size:14px;font-weight:500;color:var(--navy);}
+.ropp{font-size:12px;color:var(--tealD);font-weight:500;margin-top:2px;}
+.eprev{font-size:12px;line-height:1.7;color:var(--inkm);white-space:pre-wrap;background:var(--cream);border:1px solid var(--bdr);border-radius:8px;padding:10px 12px;max-height:130px;overflow-y:auto;}
+#notif{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--navy);color:var(--white);font-size:13px;padding:10px 18px;border-radius:8px;display:none;z-index:999;border-left:3px solid var(--teal);}
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--inkl);border-top:1px solid var(--bdr);}
+@media(max-width:580px){.stepper{flex-direction:column;}.stp{border-right:none;border-bottom:1px solid var(--bdr);}.stp:last-child{border-bottom:none;}.wrap{padding:1rem 1rem 4rem;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">V<em>&</em>V <span style="color:#a8b8d0;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;">Consulting</span></div>
+  <div class="hsub">Motor de Leads Hoteleros</div>
+</header>
+
+<div class="wrap">
+
+  <div class="stepper">
+    <div class="stp active" id="stp1" onclick="goStep(1)"><div class="snum">1</div><div class="slbl">Cargá hoteles</div></div>
+    <div class="stp" id="stp2" onclick="goStep(2)"><div class="snum">2</div><div class="slbl">Copiá el prompt</div></div>
+    <div class="stp" id="stp3" onclick="goStep(3)"><div class="snum">3</div><div class="slbl">Pegá la respuesta</div></div>
+    <div class="stp" id="stp4" onclick="goStep(4)"><div class="snum">4</div><div class="slbl">Descargá PPTX</div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div id="p1">
+    <div class="card">
+      <div class="ctitle">Agregar hoteles</div>
+      <div class="csub">Cargá la lista manualmente o generá un prompt para buscar por ciudad</div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('manual')">Lista manual</button>
+        <button class="tab" onclick="switchTab('search')">Por ciudad</button>
+      </div>
+      <div id="tab-manual">
+        <div style="font-size:12px;color:var(--inkl);margin-bottom:8px;">Un hotel por línea — Nombre · Ciudad · Estrellas · Score Booking</div>
+        <textarea id="manual-input" rows="4" placeholder="Argenta Suites Belgrano · Buenos Aires · 4★ · 9.0&#10;Design Suites Bariloche · Bariloche · 4★ · 8.6&#10;Howard Johnson Mendoza · Mendoza · 3★ · 8.2"></textarea>
+        <div class="brow">
+          <button class="btn btn-n" onclick="loadManual()">Agregar a la lista</button>
+          <button class="btn btn-s" onclick="loadExample()">Cargar ejemplo</button>
+        </div>
+      </div>
+      <div id="tab-search" style="display:none;">
+        <div style="font-size:12px;color:var(--inkl);margin-bottom:8px;">Genera el prompt para pedirle a Claude que sugiera hoteles de esa ciudad. Pegá la respuesta como lista manual.</div>
+        <div class="irow">
+          <input type="text" id="scity" placeholder="Ciudad (ej: Bariloche, Salta, Rosario...)" />
+          <input type="text" id="sstars" placeholder="Mín. estrellas" style="max-width:130px;" />
+        </div>
+        <div class="brow">
+          <button class="btn btn-n" onclick="genSearchPrompt()">Generar prompt de búsqueda</button>
+        </div>
+        <div id="search-prompt-area" style="display:none;margin-top:12px;">
+          <div class="pbox">
+            <div class="plbl">Copiá este prompt y pegalo en Claude →</div>
+            <div class="ptxt" id="search-ptxt"></div>
+          </div>
+          <div class="brow">
+            <button class="btn btn-s btn-t" onclick="copySearchPrompt()">Copiar prompt</button>
+            <span style="font-size:12px;color:var(--inkl);">Luego pegá la respuesta como lista manual arriba</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hlist-card" style="display:none;" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:13px;font-weight:500;color:var(--inkm);" id="hcount">0 hoteles</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-s btn-n" onclick="goStep(2)">Continuar →</button>
+          <button class="btn btn-s btn-g" onclick="clearList()">Limpiar</button>
+        </div>
+      </div>
+      <div id="hlist"></div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div id="p2" style="display:none;">
+    <div class="ibox">
+      <strong>Cómo funciona:</strong> Copiá el prompt de abajo y pegalo en Claude.ai. Claude va a responder con un JSON de análisis para cada hotel. Volvés acá y pegás esa respuesta en el paso 3.
+    </div>
+    <div class="card">
+      <div class="ctitle">Prompt generado</div>
+      <div class="csub">Copiá todo y pegalo en Claude para que analice los hoteles</div>
+      <div class="pbox">
+        <div class="plbl">Prompt para Claude →</div>
+        <div class="ptxt" id="aprompt"></div>
+      </div>
+      <div class="brow">
+        <button class="btn btn-t" onclick="copyPrompt()">Copiar prompt</button>
+        <button class="btn btn-s" onclick="window.open('https://claude.ai','_blank')">Abrir Claude.ai ↗</button>
+        <button class="btn btn-s btn-g" onclick="goStep(1)">← Volver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div id="p3" style="display:none;">
+    <div class="card">
+      <div class="ctitle">Pegá la respuesta de Claude</div>
+      <div class="csub">Copiá el bloque JSON completo que te devolvió Claude y pegalo acá</div>
+      <textarea id="json-in" rows="8" placeholder='{"hotels":[{"name":"...","email_subject":"...","email_body":"...","revpar_opportunity":"20-30%",...}]}'></textarea>
+      <div id="json-err" style="font-size:12px;color:var(--red);margin-top:6px;display:none;"></div>
+      <div class="brow">
+        <button class="btn btn-n" onclick="processJSON()">Procesar y generar resultados</button>
+        <button class="btn btn-s btn-g" onclick="goStep(2)">← Volver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div id="p4" style="display:none;">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px;">
+        <div class="ctitle" style="margin:0;">Resultados</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-s btn-t" onclick="downloadAll()">Descargar todos los PPTX</button>
+          <button class="btn btn-s" onclick="resetAll()">Nueva sesión</button>
+        </div>
+      </div>
+      <div id="rlist"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>V&V Consulting Group · consultinggroupvv-boop.github.io/vvconsulting · 2026</footer>
+<div id="notif"></div>
+
+<script>
+let hotels=[], results=[];
+
+function goStep(n){
+  if(n===2&&hotels.length===0){notify('Agregá al menos un hotel primero');return;}
+  if(n===2) buildPrompt();
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('p'+i).style.display=i===n?'block':'none';
+    const s=document.getElementById('stp'+i);
+    s.classList.toggle('active',i===n);
+    s.classList.toggle('done',i<n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='manual')||(i===1&&t==='search')));
+  document.getElementById('tab-manual').style.display=t==='manual'?'block':'none';
+  document.getElementById('tab-search').style.display=t==='search'?'block':'none';
+}
+
+function loadExample(){
+  document.getElementById('manual-input').value='Argenta Suites Belgrano · Buenos Aires · 4★ · 9.0\nDesign Suites Bariloche · Bariloche · 4★ · 8.6\nHoward Johnson Mendoza · Mendoza · 3★ · 8.2\nCatalinas Park Hotel · Tucumán · 5★ · 8.4';
+}
+
+function loadManual(){
+  const lines=document.getElementById('manual-input').value.trim().split('\n').filter(l=>l.trim());
+  let added=0;
+  lines.forEach(line=>{
+    const p=line.split('·').map(x=>x.trim());
+    if(p[0]){hotels.push({id:uid(),name:p[0],city:p[1]||'',stars:p[2]||'',score:p[3]||''});added++;}
+  });
+  document.getElementById('manual-input').value='';
+  renderList();
+  if(added) notify(`${added} hotel${added>1?'es':''} agregado${added>1?'s':''}`);
+}
+
+function genSearchPrompt(){
+  const city=document.getElementById('scity').value.trim();
+  if(!city){notify('Ingresá una ciudad');return;}
+  const stars=document.getElementById('sstars').value.trim()||'3';
+  const prompt=`Listame 5 hoteles boutique o cadenas medianas en ${city}, Argentina, de ${stars} estrellas o más.\n\nRespondé SOLO con este formato, un hotel por línea (sin numeración ni explicación):\nNombre del Hotel · ${city} · X★ · Score Booking\n\nEjemplo:\nHotel Mediterráneo · ${city} · 3★ · 8.1`;
+  document.getElementById('search-ptxt').textContent=prompt;
+  document.getElementById('search-prompt-area').style.display='block';
+}
+
+function copySearchPrompt(){
+  navigator.clipboard.writeText(document.getElementById('search-ptxt').textContent).then(()=>notify('Prompt copiado'));
+}
+
+function clearList(){hotels=[];renderList();}
+
+function removeHotel(id){hotels=hotels.filter(h=>h.id!==id);renderList();}
+
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+
+function renderList(){
+  const card=document.getElementById('hlist-card');
+  const el=document.getElementById('hlist');
+  document.getElementById('hcount').textContent=`${hotels.length} hotel${hotels.length!==1?'es':''}`;
+  card.style.display=hotels.length>0?'block':'none';
+  el.innerHTML=hotels.map(h=>`
+    <div class="hchip">
+      <div>
+        <div class="hname">${h.name}</div>
+        <div class="hmeta">${[h.city,h.stars,h.score?'Score '+h.score:''].filter(Boolean).join(' · ')}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        ${h.score?`<span class="badge ${parseFloat(h.score)>=8.8?'bg':'ba'}">${h.score}</span>`:''}
+        <button class="btn btn-s btn-g" onclick="removeHotel('${h.id}')" style="padding:4px 8px;">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+function buildPrompt(){
+  const list=hotels.map(h=>`- ${h.name} | ${h.city} | ${h.stars} | Score: ${h.score||'desconocido'}`).join('\n');
+  const prompt=`Analizá los siguientes hoteles para V&V Consulting Group y generá un diagnóstico de revenue management para cada uno.
+
+HOTELES:
+${list}
+
+Respondé ÚNICAMENTE con JSON válido sin texto antes ni después, sin backticks. Formato exacto:
+
+{"hotels":[{"name":"Nombre exacto del hotel","city":"Ciudad","stars":"4★","score":"8.5","rooms":"60","revpar_opportunity":"20-30%","main_pain":"Una oración sobre el principal problema de revenue","email_subject":"Asunto del email frío (max 60 chars, específico, gancho de datos)","email_body":"Email frío personalizado. 3 párrafos cortos: (1) dato específico del hotel que muestra que lo investigamos, (2) dolor concreto de revenue con número estimado, (3) CTA de 15 minutos. Firmado: Lucca · V&V Consulting Group · consultinggroupvv-boop.github.io/vvconsulting","competitors":[{"name":"Competidor 1","stars":"5★","score":"9.1","price_range":"$150-300"},{"name":"Competidor 2","stars":"4★","score":"8.8","price_range":"$120-220"},{"name":"Competidor 3","stars":"4★","score":"8.6","price_range":"$100-180"}],"opportunities":[{"number":"01","title":"Título corto","description":"Descripción concreta de 1-2 líneas con números cuando sea posible"},{"number":"02","title":"Título corto","description":"Descripción concreta"},{"number":"03","title":"Título corto","description":"Descripción concreta"},{"number":"04","title":"Título corto","description":"Descripción concreta"}],"channel_issues":[{"channel":"Booking.com","status":"Activo","issue":"Problema específico en este canal","priority":"ALTA"},{"channel":"Expedia","status":"Activo","issue":"Problema específico","priority":"ALTA"},{"channel":"Canal Directo","status":"Parcial","issue":"Problema específico","priority":"ALTA"},{"channel":"TripAdvisor","status":"Activo","issue":"Problema específico","priority":"MEDIA"}]}]}`;
+  document.getElementById('aprompt').textContent=prompt;
+}
+
+function copyPrompt(){
+  navigator.clipboard.writeText(document.getElementById('aprompt').textContent).then(()=>notify('Prompt copiado — pegalo en Claude.ai'));
+}
+
+function processJSON(){
+  const raw=document.getElementById('json-in').value.trim();
+  const err=document.getElementById('json-err');
+  err.style.display='none';
+  try{
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const data=JSON.parse(clean);
+    results=data.hotels||(Array.isArray(data)?data:[data]);
+    renderResults();
+    goStep(4);
+  }catch(e){
+    err.textContent='JSON inválido. Asegurate de copiar la respuesta completa de Claude incluyendo las llaves { }.';
+    err.style.display='block';
+  }
+}
+
+function renderResults(){
+  document.getElementById('rlist').innerHTML=results.map((h,i)=>`
+    <div class="rrow">
+      <div class="rhead">
+        <div>
+          <div class="rname">${h.name} <span style="font-size:12px;font-weight:400;color:var(--inkl);">${h.city||''}</span></div>
+          <div class="ropp">Oportunidad RevPAR: +${h.revpar_opportunity||'15-25%'}</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-s" onclick="copyEmail(${i})">Copiar email</button>
+          <button class="btn btn-s btn-t" onclick="genPPTX(${i})">Descargar PPTX</button>
+        </div>
+      </div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--inkl);margin-bottom:5px;">Email generado</div>
+      <div class="eprev">Asunto: ${h.email_subject}\n\n${h.email_body}</div>
+    </div>`).join('');
+}
+
+function copyEmail(i){
+  const h=results[i];
+  navigator.clipboard.writeText(`Asunto: ${h.email_subject}\n\n${h.email_body}`).then(()=>notify('Email copiado'));
+}
+
+async function downloadAll(){
+  for(let i=0;i<results.length;i++) await genPPTX(i);
+}
+
+function resetAll(){
+  hotels=[];results=[];
+  document.getElementById('manual-input').value='';
+  document.getElementById('json-in').value='';
+  document.getElementById('json-err').style.display='none';
+  renderList();
+  goStep(1);
+}
+
+function notify(msg){
+  const el=document.getElementById('notif');
+  el.textContent=msg;el.style.display='block';
+  setTimeout(()=>el.style.display='none',2500);
+}
+
+async function genPPTX(idx){
+  const h=results[idx];
+  const C={navy:'1a2744',navym:'243558',teal:'0D9488',tealL:'E1F5EE',tealD:'0F6E56',white:'FFFFFF',gray:'F8F9FA',grayT:'64748B',dark:'1E293B',amber:'F59E0B',amberL:'FFFBEB',border:'E2E8F0'};
+  try{
+    const pres=new PptxGenJS();
+    pres.layout='LAYOUT_16x9';
+
+    // S1 Portada
+    const s1=pres.addSlide();
+    s1.background={color:C.navy};
+    s1.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:.08,h:5.625,fill:{color:C.teal},line:{color:C.teal}});
+    s1.addText('V&V CONSULTING GROUP',{x:.4,y:.5,w:9.2,h:.45,fontSize:11,color:C.teal,bold:true,charSpacing:4});
+    s1.addText(h.name,{x:.4,y:1.3,w:9.2,h:1.3,fontSize:36,color:C.white,bold:true});
+    s1.addText('Diagnóstico de Revenue Management',{x:.4,y:2.7,w:9.2,h:.5,fontSize:18,color:'A8B8D0'});
+    s1.addText([h.city,h.stars,h.score?'Score '+h.score+' Booking':''].filter(Boolean).join('  ·  '),{x:.4,y:3.35,w:6,h:.4,fontSize:13,color:'7A8FA6'});
+    [[h.stars||'4★',0],[h.score?h.score+' Booking':'Score OTA',2.5],[h.rooms?h.rooms+' hab.':'Boutique',5]].forEach(([v,x])=>{
+      s1.addShape(pres.shapes.RECTANGLE,{x:.4+x,y:4.0,w:2.2,h:.85,fill:{color:C.navym},line:{color:'2d4268'}});
+      s1.addText(v,{x:.4+x,y:4.0,w:2.2,h:.85,fontSize:13,color:C.white,align:'center',valign:'middle',bold:true});
+    });
+    s1.addText('consultinggroupvv-boop.github.io/vvconsulting  ·  2026',{x:.4,y:5.15,w:9.2,h:.3,fontSize:10,color:'4A6080'});
+
+    // S2 Problema en números
+    const s2=pres.addSlide();
+    s2.background={color:C.white};
+    s2.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:10,h:.55,fill:{color:C.navy},line:{color:C.navy}});
+    s2.addText('EL PROBLEMA EN NÚMEROS',{x:.4,y:0,w:9.2,h:.55,fontSize:12,color:C.white,bold:true,charSpacing:3,valign:'middle'});
+    s2.addText(h.name+' — oportunidad de revenue identificada',{x:.4,y:.65,w:9.2,h:.35,fontSize:13,color:C.grayT});
+    s2.addShape(pres.shapes.RECTANGLE,{x:.3,y:1.15,w:4.0,h:2.8,fill:{color:C.navy},line:{color:C.navy}});
+    s2.addText(h.name,{x:.4,y:1.28,w:3.8,h:.52,fontSize:14,color:C.white,bold:true,margin:4});
+    s2.addText([{text:(h.stars||'4★')+'\n',options:{color:C.teal,bold:true}},{text:'Score '+(h.score||'8.x')+'\n',options:{color:'A8B8D0'}},{text:h.rooms?h.rooms+' habitaciones':'',options:{color:'A8B8D0'}}],{x:.4,y:1.88,w:3.8,h:.9,fontSize:13,margin:4});
+    s2.addText('Oportunidad de RevPAR',{x:.4,y:2.92,w:3.8,h:.28,fontSize:11,color:'A8B8D0',margin:4});
+    s2.addText('+'+(h.revpar_opportunity||'15-25%'),{x:.4,y:3.22,w:3.8,h:.58,fontSize:28,color:C.teal,bold:true,margin:4});
+    (h.competitors||[]).slice(0,3).forEach((c,i)=>{
+      const y=1.15+i*.95;
+      s2.addShape(pres.shapes.RECTANGLE,{x:4.6,y,w:5.1,h:.82,fill:{color:C.gray},line:{color:C.border}});
+      s2.addText(c.name,{x:4.72,y:y+.06,w:3.1,h:.3,fontSize:13,color:C.dark,bold:true,margin:0});
+      s2.addText((c.stars||'')+' · '+c.score,{x:4.72,y:y+.44,w:2.5,h:.25,fontSize:11,color:C.grayT,margin:0});
+      s2.addText(c.price_range||'',{x:7.6,y:y+.06,w:2.0,h:.65,fontSize:13,color:C.tealD,bold:true,align:'right',valign:'middle',margin:0});
+    });
+    s2.addText(h.main_pain||'',{x:.3,y:4.82,w:9.4,h:.48,fontSize:11,color:C.grayT,italic:true,align:'center'});
+
+    // S3 OTAs
+    const s3=pres.addSlide();
+    s3.background={color:C.white};
+    s3.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:10,h:.55,fill:{color:C.navy},line:{color:C.navy}});
+    s3.addText('PRESENCIA EN OTAs',{x:.4,y:0,w:9.2,h:.55,fontSize:12,color:C.white,bold:true,charSpacing:3,valign:'middle'});
+    s3.addText('Diagnóstico de canales de distribución',{x:.4,y:.65,w:9.2,h:.35,fontSize:13,color:C.grayT});
+    (h.channel_issues||[]).slice(0,4).forEach((ch,i)=>{
+      const y=1.1+i*1.05,hi=ch.priority==='ALTA';
+      s3.addShape(pres.shapes.RECTANGLE,{x:.3,y,w:9.4,h:.88,fill:{color:C.gray},line:{color:C.border}});
+      s3.addShape(pres.shapes.RECTANGLE,{x:.3,y,w:.06,h:.88,fill:{color:hi?C.teal:'F59E0B'},line:{color:hi?C.teal:'F59E0B'}});
+      s3.addText(ch.channel,{x:.5,y:y+.08,w:2.4,h:.3,fontSize:13,color:C.dark,bold:true,margin:0});
+      s3.addText('Estado: '+(ch.status||'Activo'),{x:.5,y:y+.46,w:2.4,h:.28,fontSize:11,color:C.grayT,margin:0});
+      s3.addText(ch.issue||'',{x:3.1,y:y+.08,w:5.0,h:.65,fontSize:12,color:C.grayT,valign:'middle',margin:0});
+      s3.addShape(pres.shapes.RECTANGLE,{x:8.35,y:y+.22,w:1.2,h:.38,fill:{color:hi?C.tealL:'FFFBEB'},line:{color:hi?C.teal:'F59E0B'}});
+      s3.addText(ch.priority||'',{x:8.35,y:y+.22,w:1.2,h:.38,fontSize:11,color:hi?C.tealD:'92400E',bold:true,align:'center',valign:'middle'});
+    });
+
+    // S4 Oportunidades
+    const s4=pres.addSlide();
+    s4.background={color:C.white};
+    s4.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:10,h:.55,fill:{color:C.navy},line:{color:C.navy}});
+    s4.addText('OPORTUNIDADES CONCRETAS',{x:.4,y:0,w:9.2,h:.55,fontSize:12,color:C.white,bold:true,charSpacing:3,valign:'middle'});
+    s4.addText('Qué puede ganar '+h.name+' con Revenue Management',{x:.4,y:.65,w:9.2,h:.35,fontSize:13,color:C.grayT});
+    (h.opportunities||[]).slice(0,4).forEach((op,i)=>{
+      const col=i%2,row=Math.floor(i/2),x=.3+col*4.9,y=1.1+row*2.05;
+      s4.addShape(pres.shapes.RECTANGLE,{x,y,w:4.55,h:1.85,fill:{color:C.gray},line:{color:C.border}});
+      s4.addShape(pres.shapes.RECTANGLE,{x,y,w:4.55,h:.52,fill:{color:C.navy},line:{color:C.navy}});
+      s4.addText(op.number||String(i+1).padStart(2,'0'),{x:x+.12,y,w:.5,h:.52,fontSize:14,color:C.teal,bold:true,valign:'middle',margin:0});
+      s4.addText(op.title||'',{x:x+.68,y,w:3.75,h:.52,fontSize:12,color:C.white,bold:true,valign:'middle',margin:0});
+      s4.addText(op.description||'',{x:x+.15,y:y+.6,w:4.2,h:1.1,fontSize:11,color:C.grayT,valign:'top'});
+    });
+
+    // S5 CTA
+    const s5=pres.addSlide();
+    s5.background={color:C.navy};
+    s5.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:.08,h:5.625,fill:{color:C.teal},line:{color:C.teal}});
+    s5.addText('V&V CONSULTING GROUP',{x:.4,y:.5,w:9.2,h:.45,fontSize:11,color:C.teal,bold:true,charSpacing:4});
+    s5.addText('Empecemos con una\nllamada de 15 minutos',{x:.4,y:1.1,w:9.2,h:1.4,fontSize:32,color:C.white,bold:true});
+    [['01','Diagnóstico gratuito','Análisis de canales, tarifas y posicionamiento vs competencia.'],['02','Demo 45 min','Revenue Management aplicado con datos reales del hotel.'],['03','Propuesta económica','Por proyectos y objetivos. Sin contratos largos.'],['04','Si generamos valor','Seguimos. Si no, no perdiste nada.']].forEach(([n,t,d],i)=>{
+      const x=.4+i*2.42;
+      s5.addShape(pres.shapes.RECTANGLE,{x,y:2.75,w:2.2,h:2.2,fill:{color:C.navym},line:{color:'2d4268'}});
+      s5.addText(n,{x:x+.15,y:2.85,w:1.85,h:.42,fontSize:17,color:C.teal,bold:true,margin:0});
+      s5.addText(t,{x:x+.12,y:3.3,w:1.9,h:.52,fontSize:12,color:C.white,bold:true,margin:0});
+      s5.addText(d,{x:x+.12,y:3.88,w:1.9,h:.9,fontSize:10,color:'A8B8D0',margin:0});
+    });
+    s5.addText('consultinggroupvv-boop.github.io/vvconsulting',{x:.4,y:5.2,w:9.2,h:.28,fontSize:10,color:'4A6080'});
+
+    const fname=(h.name||'hotel').replace(/[^a-z0-9]/gi,'_');
+    await pres.writeFile({fileName:'Analisis_'+fname+'_VV.pptx'});
+    notify('PPTX de '+h.name+' descargado');
+  }catch(e){
+    alert('Error generando PPTX: '+e.message);
+  }
+}
+</script>
+</body>
+</html>
